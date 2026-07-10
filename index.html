@@ -1,0 +1,769 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>PrimeNetwork · Season 1</title>
+    <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" />
+    
+    <style>
+        /* --- CSS VARIABLES FOR THEMES (LOADING FROM ASSETS FOLDER) --- */
+        :root {
+            --bg-image: url('assets/dark-bg.png');
+            --text-main: #e0e6ed;
+            --text-muted: #8b949e;
+            --text-accent: #f5d742;
+            --card-bg: rgba(18, 26, 32, 0.75);
+            --card-border: rgba(255, 255, 255, 0.06);
+            --shadow-color: rgba(0,0,0,0.4);
+            --nav-bg: rgba(22, 28, 36, 0.85);
+        }
+
+        body.light-theme {
+            --bg-image: url('assets/light-bg.png');
+            --text-main: #1e293b;
+            --text-muted: #475569;
+            --text-accent: #b45309;
+            --card-bg: rgba(255, 255, 255, 0.85);
+            --card-border: rgba(0, 0, 0, 0.08);
+            --shadow-color: rgba(0,0,0,0.1);
+            --nav-bg: rgba(255, 255, 255, 0.85);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Nunito', sans-serif;
+            background-color: #0d1117;
+            color: var(--text-main);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 20px;
+            padding-top: 100px;
+            transition: color 0.3s ease, background-color 0.3s ease;
+        }
+
+        /* --- FIXED BACKGROUND SWAP --- */
+        .bg-image {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            z-index: -1;
+            /* Loads cleanly with no darkening overlay */
+            background: var(--bg-image) center/cover no-repeat;
+            background-color: transparent;
+            background-blend-mode: normal;
+            transition: background 0.3s ease;
+        }
+
+        /* --- NAVIGATION --- */
+        .ios-nav {
+            position: fixed;
+            top: 25px;
+            left: 50%;
+            transform: translateX(-50%);
+            z-index: 100;
+            background: var(--nav-bg);
+            backdrop-filter: blur(16px);
+            border: 1px solid var(--card-border);
+            box-shadow: 0 10px 30px var(--shadow-color);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 30px;
+            padding: 12px 28px;
+            border-radius: 60px;
+            width: auto;
+            max-width: 90%;
+            flex-wrap: wrap;
+            transition: background 0.3s ease, border 0.3s ease;
+        }
+
+        .brand {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 18px;
+            font-weight: 800;
+            color: var(--text-main);
+            white-space: nowrap;
+        }
+
+        .brand-icon { color: var(--text-accent); font-size: 22px; }
+
+        .nav-items {
+            list-style: none;
+            display: flex;
+            gap: 25px;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+
+        .nav-items a {
+            text-decoration: none;
+            color: var(--text-muted);
+            font-weight: 600;
+            font-size: 14px;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            transition: 0.2s;
+            padding-bottom: 4px;
+            border-bottom: 2px solid transparent;
+        }
+
+        .nav-items a:hover { color: var(--text-main); }
+        .nav-items a.current { color: var(--text-accent); border-bottom-color: var(--text-accent); }
+        .nav-items a.current i { color: var(--text-accent); }
+
+        /* --- THEME TOGGLE BUTTON (TOP RIGHT) --- */
+        .theme-toggle {
+            position: fixed;
+            top: 95px;
+            right: 30px;
+            z-index: 101;
+            width: 48px;
+            height: 48px;
+            border-radius: 50%;
+            background: var(--nav-bg);
+            backdrop-filter: blur(16px);
+            border: 1px solid var(--card-border);
+            box-shadow: 0 4px 15px var(--shadow-color);
+            color: var(--text-accent);
+            font-size: 20px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s ease;
+        }
+
+        .theme-toggle:hover {
+            transform: scale(1.1);
+            border-color: var(--text-accent);
+        }
+
+        /* --- HERO SECTION --- */
+        .hero-area {
+            text-align: center;
+            padding: 40px 20px 20px;
+            max-width: 800px;
+            width: 100%;
+        }
+
+        .main-headline {
+            font-size: 56px;
+            font-weight: 800;
+            line-height: 1.1;
+            color: var(--text-main);
+            letter-spacing: -1px;
+            margin-bottom: 20px;
+        }
+
+        .highlight-gold { color: var(--text-accent); }
+        .highlight-dark { color: var(--text-muted); }
+
+        .tagline {
+            font-size: 17px;
+            color: var(--text-muted);
+            max-width: 550px;
+            margin: 0 auto 30px;
+            line-height: 1.6;
+        }
+
+        .action-group {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            flex-wrap: wrap;
+        }
+
+        .cta-primary {
+            background: var(--text-accent);
+            color: #0d1117;
+            text-decoration: none;
+            padding: 14px 32px;
+            border-radius: 30px;
+            font-weight: 700;
+            font-size: 15px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            transition: 0.2s;
+            box-shadow: 0 4px 15px rgba(245, 215, 66, 0.3);
+        }
+
+        .cta-primary:hover { background: #e6c832; transform: translateY(-2px); }
+
+        .cta-secondary {
+            background: var(--card-bg);
+            color: var(--text-main);
+            text-decoration: none;
+            padding: 14px 32px;
+            border-radius: 30px;
+            font-weight: 600;
+            font-size: 15px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            border: 1px solid var(--card-border);
+            transition: 0.2s;
+        }
+
+        .cta-secondary:hover { border-color: var(--text-accent); background: rgba(245, 215, 66, 0.05); }
+
+        /* --- FAQ --- */
+        .faq-section {
+            max-width: 700px;
+            width: 100%;
+            margin: 20px auto 10px;
+            padding: 0 20px;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .faq-item {
+            background: var(--card-bg);
+            backdrop-filter: blur(12px);
+            border: 1px solid var(--card-border);
+            border-radius: 16px;
+            padding: 16px 20px;
+            transition: 0.2s;
+        }
+
+        .faq-item:hover { border-color: rgba(245, 215, 66, 0.2); background: var(--card-bg); }
+
+        .faq-question {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            font-weight: 700;
+            font-size: 16px;
+            color: var(--text-main);
+            margin-bottom: 6px;
+        }
+
+        .faq-icon { color: var(--text-accent); font-size: 18px; width: 24px; text-align: center; }
+
+        .faq-answer {
+            font-size: 14px;
+            color: var(--text-muted);
+            padding-left: 36px;
+            line-height: 1.5;
+        }
+
+        /* --- RULES SECTION --- */
+        .rules-section {
+            max-width: 1100px;
+            width: 100%;
+            margin: 60px auto 20px;
+            padding: 0 20px;
+        }
+
+        .rules-title {
+            font-size: 32px;
+            font-weight: 800;
+            text-align: center;
+            margin-bottom: 30px;
+            color: var(--text-main);
+        }
+
+        .rules-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 20px;
+        }
+
+        .rules-card {
+            background: var(--card-bg);
+            backdrop-filter: blur(12px);
+            border: 1px solid var(--card-border);
+            border-radius: 20px;
+            padding: 24px 20px;
+            transition: 0.3s ease;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .rules-card:hover {
+            transform: translateY(-4px);
+            border-color: rgba(245, 215, 66, 0.2);
+            box-shadow: 0 8px 30px var(--shadow-color);
+        }
+
+        .rules-card-header {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 16px;
+            padding-bottom: 12px;
+            border-bottom: 1px solid var(--card-border);
+        }
+
+        .rules-card-header i {
+            color: var(--text-accent);
+            font-size: 24px;
+            width: 40px;
+            height: 40px;
+            background: rgba(245, 215, 66, 0.1);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .rules-card-header h3 {
+            font-size: 20px;
+            font-weight: 700;
+            color: var(--text-main);
+        }
+
+        .rules-list {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+            flex: 1;
+        }
+
+        .rules-list li {
+            font-size: 14px;
+            color: var(--text-muted);
+            padding: 6px 0;
+            border-bottom: 1px solid var(--card-border);
+            display: flex;
+            align-items: flex-start;
+            gap: 8px;
+        }
+
+        .rules-list li:last-child { border-bottom: none; }
+
+        .rules-list li::before {
+            content: "•";
+            color: var(--text-accent);
+            font-weight: bold;
+            font-size: 18px;
+            line-height: 1.2;
+        }
+
+        .rules-footer {
+            margin-top: 16px;
+            padding-top: 12px;
+            border-top: 1px solid var(--card-border);
+            font-size: 13px;
+            color: var(--text-muted);
+            font-style: italic;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        /* --- STATUS SECTION --- */
+        .status-section {
+            max-width: 700px;
+            width: 100%;
+            margin: 60px auto 20px;
+            padding: 0 20px;
+        }
+
+        .status-title {
+            font-size: 28px;
+            font-weight: 700;
+            margin-bottom: 20px;
+            color: var(--text-main);
+            text-align: center;
+        }
+
+        .status-card {
+            background: var(--card-bg);
+            backdrop-filter: blur(16px);
+            border: 1px solid var(--card-border);
+            border-radius: 24px;
+            padding: 20px 0;
+            transition: 0.3s;
+            box-shadow: 0 10px 30px var(--shadow-color);
+            overflow: hidden;
+        }
+
+        .status-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 12px 28px;
+            border-bottom: 1px solid var(--card-border);
+        }
+        .status-row:last-child { border-bottom: none; }
+
+        .status-label {
+            font-weight: 700;
+            font-size: 15px;
+            color: var(--text-muted);
+            min-width: 80px;
+        }
+
+        .status-value {
+            font-weight: 600;
+            font-size: 15px;
+            color: var(--text-main);
+            text-align: right;
+            flex: 1;
+        }
+
+        .status-online {
+            color: #2ea043;
+            background: rgba(46, 160, 67, 0.15);
+            padding: 4px 16px;
+            border-radius: 20px;
+            font-size: 13px;
+            display: inline-block;
+            font-weight: 700;
+        }
+        .status-offline {
+            color: #f85149;
+            background: rgba(248, 81, 73, 0.15);
+            padding: 4px 16px;
+            border-radius: 20px;
+            font-size: 13px;
+            display: inline-block;
+            font-weight: 700;
+        }
+
+        .motd-box {
+            background: rgba(0, 0, 0, 0.2);
+            border-radius: 12px;
+            padding: 10px 16px;
+            text-align: center;
+            max-width: 100%;
+            display: inline-block;
+            border: 1px solid var(--card-border);
+        }
+        .motd-box p {
+            margin: 2px 0;
+            font-size: 14px;
+            font-weight: 700;
+            color: var(--text-accent);
+            text-shadow: 0 0 15px rgba(245, 215, 66, 0.15);
+        }
+        .motd-box .motd-sub {
+            font-size: 11px;
+            color: var(--text-muted);
+            font-weight: 600;
+            letter-spacing: 1px;
+        }
+
+        .server-icon {
+            width: 48px;
+            height: 48px;
+            image-rendering: pixelated;
+            background: rgba(0,0,0,0.2);
+            border-radius: 8px;
+            padding: 2px;
+            border: 1px solid var(--card-border);
+        }
+
+        .status-loading {
+            color: var(--text-muted);
+            font-style: italic;
+            font-size: 14px;
+        }
+
+        /* --- FOOTER --- */
+        .site-footer {
+            text-align: center;
+            padding: 40px 20px 20px;
+            color: var(--text-muted);
+            font-size: 13px;
+        }
+
+        /* --- RESPONSIVE --- */
+        @media (max-width: 800px) {
+            .rules-grid { grid-template-columns: 1fr; }
+            .theme-toggle { top: 90px; right: 15px; width: 40px; height: 40px; font-size: 16px; }
+        }
+        @media (max-width: 600px) {
+            body { padding-top: 80px; }
+            .main-headline { font-size: 36px; }
+            .ios-nav { flex-direction: column; padding: 10px 20px; width: 90%; }
+            .nav-items { gap: 12px; }
+        }
+        @media (max-width: 500px) {
+            .status-row { flex-wrap: wrap; gap: 4px; padding: 10px 16px; }
+            .status-value { text-align: left; width: 100%; }
+            .motd-box { width: 100%; text-align: center; }
+        }
+    </style>
+</head>
+<body>
+    
+    <!-- Background is handled entirely by CSS Variables -->
+    <div class="bg-image"></div>
+
+    <!-- Top Right Theme Toggle Button -->
+    <button class="theme-toggle" id="themeToggle" title="Toggle Theme">
+        <i class="fas fa-moon" id="themeIcon"></i>
+    </button>
+
+    <nav class="ios-nav">
+        <div class="brand">
+            <i class="fas fa-cube brand-icon"></i>
+            <span class="brand-name">PrimeNetwork</span>
+        </div>
+        
+        <ul class="nav-items">
+            <li><a href="index.html" class="current"><i class="fas fa-house"></i> Home</a></li>
+            <li><a href="about.html"><i class="fas fa-circle-info"></i> About</a></li>
+            <li><a href="members.html"><i class="fas fa-users"></i> Members</a></li>
+            <li><a href="store/"><i class="fas fa-cart-shopping"></i> Store</a></li>
+            <li><a href="leaderboards.html"><i class="fas fa-trophy"></i> LeaderBoard</a></li>
+            <li><a href="contact.html"><i class="fas fa-envelope"></i> Contact</a></li>
+        </ul>
+    </nav>
+
+    <main class="hero-area">
+        <h1 class="main-headline">
+            Build. <br />
+            <span class="highlight-gold">Survive.</span>
+            <br />
+            <span class="highlight-dark">PrimeNetwork.</span>
+        </h1>
+
+        <p class="tagline">
+            No handouts. No safe zones. Just you, your friends, and a world waiting to be shaped.
+        </p>
+
+        <div class="action-group">
+            <a href="about.html" class="cta-primary"><i class="fas fa-play"></i> Play Now</a>
+            <a href="members.html" class="cta-secondary"><i class="fas fa-users"></i> Meet the Crew</a>
+        </div>
+    </main>
+
+    <div class="faq-section">
+        <div class="faq-item">
+            <div class="faq-question"><i class="fas fa-circle-question faq-icon"></i><span>What is PrimeNetwork?</span></div>
+            <div class="faq-answer"> together.</div>
+        </div>
+        <div class="faq-item">
+            <div class="faq-question"><i class="fas fa-circle-question faq-icon"></i><span>How do I join the server?</span></div>
+            <div class="faq-answer">Open your multiplayer menu, add a new server, and enon our Server page.</div>
+        </div>
+        <div class="faq-item">
+            <div class="faq-question"><i class="fas fa-circle-question faq-icon"></i><span>What version does the server run on?</span></div>
+            <div class="faq-answer">We currently support the latest stable release. Checkout page for detailed info.</div>
+        </div>
+        <div class="faq-item">
+            <div class="faq-question"><i class="fas fa-circle-question faq-icon"></i><span>Are there any rules?</span></div>
+            <div class="faq-answer">Yes. Scroll down below to see the full list!</div>
+        </div>
+    </div>
+
+    <!-- RULES SECTION (3 COLUMN CARDS) -->
+    <section class="rules-section">
+        <h2 class="rules-title"><i class="fas fa-gavel" style="color: var(--text-accent); margin-right: 12px;"></i> Server Rules</h2>
+        
+        <div class="rules-grid">
+            <div class="rules-card">
+                <div class="rules-card-header"><i class="fas fa-ban"></i><h3>Blacklisted Mods / Clients</h3></div>
+                <ul class="rules-list">
+                    <li>No hacked clients</li>
+                    <li>No movement mods</li>
+                    <li>No ItemScroller / MouseTweaks</li>
+                    <li>No radar / minimap / world map mods</li>
+                    <li>No ESP (any type)</li>
+                    <li>No freecam / replay mod / spectator-like mods</li>
+                    <li>No accurate block placement mods</li>
+                    <li>No macros, scripts, or auto clickers</li>
+                    <li>No crystal optimizers (except Marlow / Hero)</li>
+                    <li>No X-ray mods or resource packs</li>
+                    <li>No bridging mods (Ex: bedrock bridging)</li>
+                    <li>No Inventory Profile Next</li>
+                    <li>No ProfileMacros</li>
+                    <li>No griefing</li>
+                </ul>
+            </div>
+
+            <div class="rules-card">
+                <div class="rules-card-header"><i class="fas fa-scale-balanced"></i><h3>General Rules</h3></div>
+                <ul class="rules-list">
+                    <li>No IRL / cross trading</li>
+                    <li>No cheating or unfair advantages</li>
+                    <li>No bug or glitch abuse</li>
+                    <li>No doxxing</li>
+                    <li>No spam</li>
+                    <li>No NSFW content</li>
+                    <li>No abusive language</li>
+                    <li>No advertising</li>
+                    <li>No threats (including death threats)</li>
+                    <li>No impersonating players or staff</li>
+                    <li>No ban evading</li>
+                    <li>No inappropriate skin in minecraft will result to (5D ban)</li>
+                    <li>No having inappropriate name</li>
+                    <li>No duping</li>
+                    <li>No Scamming</li>
+                </ul>
+            </div>
+
+            <div class="rules-card">
+                <div class="rules-card-header"><i class="fas fa-circle-exclamation"></i><h3>Reminder</h3></div>
+                <ul class="rules-list">
+                    <li>Use common sense</li>
+                    <li>If it gives an advantage, it’s likely not allowed</li>
+                    <li>If you think it's not allowed, Don't do it!</li>
+                    <li>Staff decisions are final</li>
+                </ul>
+                <div class="rules-footer"><i class="fas fa-shield-halved"></i> Play fair, have fun, respect others.</div>
+            </div>
+        </div>
+    </section>
+
+    <!-- STATUS SECTION -->
+    <section class="status-section">
+        <h2 class="status-title"><i class="fas fa-server" style="color: var(--text-accent); margin-right: 10px;"></i> Server Status</h2>
+        
+        <div class="status-card" id="status-card">
+            <div class="status-row">
+                <span class="status-label">Status</span>
+                <span class="status-value" id="s-status"><span class="status-loading">Checking...</span></span>
+            </div>
+            <div class="status-row">
+                <span class="status-label">Host</span>
+                <span class="status-value" id="s-host">primesmp.loca.lol</span>
+            </div>
+            <div class="status-row">
+                <span class="status-label">Port</span>
+                <span class="status-value" id="s-port">25565</span>
+            </div>
+            <div class="status-row">
+                <span class="status-label">Icon</span>
+                <span class="status-value" id="s-icon"><span class="status-loading">Loading...</span></span>
+            </div>
+            <div class="status-row">
+                <span class="status-label">MOTD</span>
+                <span class="status-value" id="s-motd"><span class="status-loading">Loading...</span></span>
+            </div>
+            <div class="status-row">
+                <span class="status-label">Version</span>
+                <span class="status-value" id="s-version"><span class="status-loading">Loading...</span></span>
+            </div>
+            <div class="status-row">
+                <span class="status-label">Players</span>
+                <span class="status-value" id="s-players"><span class="status-loading">Loading...</span></span>
+            </div>
+        </div>
+    </section>
+
+    <footer class="site-footer">
+        <p>Designed by Yoloo, Mwaa. Love you chupchup ko bb</p>
+    </footer>
+
+    <script>
+        function copyIP() {
+            navigator.clipboard.writeText('primesmp.loca.lol').then(() => {
+                alert("IP copied! Paste it in your multiplayer server list.");
+            }).catch(() => {
+                alert("Copy failed! Type it manually: primesmp.loca.lol");
+            });
+        }
+
+        // ==============================================
+        // THEME TOGGLE LOGIC
+        // ==============================================
+        const themeToggle = document.getElementById('themeToggle');
+        const themeIcon = document.getElementById('themeIcon');
+
+        // Check for saved theme
+        const currentTheme = localStorage.getItem('theme');
+        if (currentTheme === 'light') {
+            document.body.classList.add('light-theme');
+            themeIcon.className = 'fas fa-sun';
+        }
+
+        themeToggle.addEventListener('click', function() {
+            document.body.classList.toggle('light-theme');
+            
+            if (document.body.classList.contains('light-theme')) {
+                themeIcon.className = 'fas fa-sun';
+                localStorage.setItem('theme', 'light');
+            } else {
+                themeIcon.className = 'fas fa-moon';
+                localStorage.setItem('theme', 'dark');
+            }
+        });
+
+        // ==============================================
+        // ADVANCED STATUS FETCHER (mcsrvstat.us API)
+        // ==============================================
+        async function fetchServerStatus() {
+            try {
+                const response = await fetch('https://api.mcsrvstat.us/2/202.1.31.143:25567');
+                const data = await response.json();
+
+                const statusEl = document.getElementById('s-status');
+                if (data.online) {
+                    statusEl.innerHTML = '<span class="status-online">Online</span>';
+                } else {
+                    statusEl.innerHTML = '<span class="status-offline">Offline</span>';
+                }
+
+                document.getElementById('s-host').textContent = 'primesmp.loca.lol';
+                document.getElementById('s-port').textContent = '25565';
+
+                const iconEl = document.getElementById('s-icon');
+                if (data.icon) {
+                    iconEl.innerHTML = `<img src="${data.icon}" class="server-icon" alt="Server Icon" />`;
+                } else {
+                    iconEl.textContent = 'None';
+                }
+
+                const motdEl = document.getElementById('s-motd');
+                if (data.motd && data.motd.clean && data.motd.clean.length > 0) {
+                    let motdHtml = '<div class="motd-box">';
+                    data.motd.clean.forEach(line => {
+                        if (line.trim() !== '') {
+                            motdHtml += `<p>${line}</p>`;
+                        }
+                    });
+                    motdHtml += '</div>';
+                    motdEl.innerHTML = motdHtml;
+                } else {
+                    motdEl.textContent = 'No MOTD available';
+                }
+
+                const versionEl = document.getElementById('s-version');
+                if (data.version) {
+                    versionEl.textContent = data.version;
+                } else {
+                    versionEl.textContent = 'Unknown';
+                }
+
+                const playersEl = document.getElementById('s-players');
+                if (data.players) {
+                    playersEl.textContent = `${data.players.online} / ${data.players.max}`;
+                } else {
+                    playersEl.textContent = '0 / 0';
+                }
+
+            } catch (error) {
+                console.error('API Error:', error);
+                document.getElementById('s-status').innerHTML = '<span class="status-offline">Unknown</span>';
+                document.getElementById('s-icon').textContent = 'Error';
+                document.getElementById('s-motd').textContent = 'Failed to fetch';
+                document.getElementById('s-version').textContent = 'Error';
+                document.getElementById('s-players').textContent = 'Error';
+            }
+        }
+
+        document.addEventListener('DOMContentLoaded', fetchServerStatus);
+        setInterval(fetchServerStatus, 30000);
+    </script>
+</body>
+</html>

@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Leaderboards · PrimeNetwork S1</title>
+    <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" />
+</head>
+<body>
+    
+    <div class="bg-image"></div>
+
+    <button class="theme-toggle" id="themeToggle" title="Toggle Theme">
+        <i class="fas fa-moon" id="themeIcon"></i>
+    </button>
+
+    <nav class="ios-nav">
+        <div class="brand">
+            <i class="fas fa-cube brand-icon"></i>
+            <span class="brand-name">PrimeNetwork</span>
+        </div>
+        
+        <ul class="nav-items">
+            <li><a href="index.html"><i class="fas fa-house"></i> Home</a></li>
+            <li><a href="about.html"><i class="fas fa-circle-info"></i> About</a></li>
+            <li><a href="members.html"><i class="fas fa-users"></i> Members</a></li>
+            <li><a href="store/"><i class="fas fa-cart-shopping"></i> Store</a></li>
+            <li><a href="leaderboards.html" class="current"><i class="fas fa-trophy"></i> LeaderBoard</a></li>
+            <li><a href="contact.html"><i class="fas fa-envelope"></i> Contact</a></li>
+        </ul>
+    </nav>
+
+    <main class="page-content">
+        <h1 class="page-title">Server Leaderboards</h1>
+        
+        <div class="lb-categories">
+            <button class="lb-btn active" onclick="switchLB('points')"><i class="fas fa-star"></i> Points</button>
+            <button class="lb-btn" onclick="switchLB('kills')"><i class="fas fa-sword"></i> PvP Kills</button>
+            <button class="lb-btn" onclick="switchLB('mobkills')"><i class="fas fa-paw"></i> Mob Kills</button>
+            <button class="lb-btn" onclick="switchLB('deaths')"><i class="fas fa-skull"></i> Deaths</button>
+            <button class="lb-btn" onclick="switchLB('money')"><i class="fas fa-coins"></i> Money</button>
+        </div>
+
+        <div id="lb-points" class="lb-container active">
+            <div class="lb-empty"><i class="fas fa-spinner fa-spin"></i> Fetching data...</div>
+        </div>
+        <div id="lb-kills" class="lb-container">
+            <div class="lb-empty"><i class="fas fa-spinner fa-spin"></i> Fetching data...</div>
+        </div>
+        <div id="lb-mobkills" class="lb-container">
+            <div class="lb-empty"><i class="fas fa-spinner fa-spin"></i> Fetching data...</div>
+        </div>
+        <div id="lb-deaths" class="lb-container">
+            <div class="lb-empty"><i class="fas fa-spinner fa-spin"></i> Fetching data...</div>
+        </div>
+        <div id="lb-money" class="lb-container">
+            <div class="lb-empty"><i class="fas fa-spinner fa-spin"></i> Fetching data...</div>
+        </div>
+    </main>
+
+    <footer class="site-footer">
+        <p>Designed by Yoloo, Mwaa. Love you chupchup ko bb</p>
+    </footer>
+
+    <script>
+        const themeToggle = document.getElementById('themeToggle');
+        const themeIcon = document.getElementById('themeIcon');
+
+        const currentTheme = localStorage.getItem('theme');
+        if (currentTheme === 'light') {
+            document.body.classList.add('light-theme');
+            themeIcon.className = 'fas fa-sun';
+        }
+
+        themeToggle.addEventListener('click', function() {
+            document.body.classList.toggle('light-theme');
+            if (document.body.classList.contains('light-theme')) {
+                themeIcon.className = 'fas fa-sun';
+                localStorage.setItem('theme', 'light');
+            } else {
+                themeIcon.className = 'fas fa-moon';
+                localStorage.setItem('theme', 'dark');
+            }
+        });
+    </script>
+
+    <script>
+        // 👉 POINTS TO YOUR LOCAL PHP FILE (NO CORS ERROR)
+        const BRIDGE_URL = 'proxy.php';
+
+        function switchLB(id) {
+            document.querySelectorAll('.lb-btn').forEach(b => b.classList.remove('active'));
+            document.querySelectorAll('.lb-container').forEach(c => c.classList.remove('active'));
+            event.target.closest('.lb-btn').classList.add('active');
+            document.getElementById('lb-' + id).classList.add('active');
+        }
+
+        async function loadLeaderboard() {
+            try {
+                const response = await fetch(BRIDGE_URL);
+                if (!response.ok) throw new Error("Network response was not ok");
+                const data = await response.json();
+
+                renderCategory('points', data.points, 'Points');
+                renderCategory('kills', data.kills, 'Kills');
+                renderCategory('mobkills', data.mobkills, 'Mob Kills');
+                renderCategory('deaths', data.deaths, 'Deaths');
+                renderCategory('money', data.money, 'Money');
+
+            } catch (error) {
+                console.error("Failed to load bridge data:", error);
+                document.querySelectorAll('.lb-container').forEach(container => {
+                    // 👉 REMOVED THE CLOUDFLARE HEADERS ERROR MESSAGE
+                    container.innerHTML = `<div class="lb-empty" style="color: #ff3b3b;"><i class="fas fa-times-circle"></i> Failed to connect. Check console.</div>`;
+                });
+            }
+        }
+
+        function renderCategory(id, players, label) {
+            const container = document.getElementById('lb-' + id);
+            container.innerHTML = '';
+
+            const filteredPlayers = players.filter(p => p.value >= 0);
+
+            if (!filteredPlayers || filteredPlayers.length === 0) {
+                container.innerHTML = `<div class="lb-empty">No data available yet.</div>`;
+                return;
+            }
+
+            filteredPlayers.forEach((player, index) => {
+                const rank = index + 1;
+                let rankClass = '';
+                if (rank === 1) rankClass = 'top-1';
+                if (rank === 2) rankClass = 'top-2';
+                if (rank === 3) rankClass = 'top-3';
+
+                const card = `
+                    <div class="lb-card ${rankClass}">
+                        <div class="lb-rank">#${rank}</div>
+                        <div class="lb-info">
+                            <span class="lb-name">${player.name}</span>
+                            <span class="lb-stats">${player.value} ${label}</span>
+                        </div>
+                    </div>
+                `;
+                container.innerHTML += card;
+            });
+        }
+
+        document.addEventListener('DOMContentLoaded', loadLeaderboard);
+    </script>
+</body>
+</html>
