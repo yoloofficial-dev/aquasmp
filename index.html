@@ -508,11 +508,6 @@
     <!-- Background is handled entirely by CSS Variables -->
     <div class="bg-image"></div>
 
-    <!-- Top Right Theme Toggle Button -->
-    <button class="theme-toggle" id="themeToggle" title="Toggle Theme">
-        <i class="fas fa-moon" id="themeIcon"></i>
-    </button>
-
     <nav class="ios-nav">
         <div class="brand">
             <i class="fas fa-cube brand-icon"></i>
@@ -673,31 +668,6 @@
                 alert("Copy failed! Type it manually: primesmp.loca.lol");
             });
         }
-
-        // ==============================================
-        // THEME TOGGLE LOGIC
-        // ==============================================
-        const themeToggle = document.getElementById('themeToggle');
-        const themeIcon = document.getElementById('themeIcon');
-
-        // Check for saved theme
-        const currentTheme = localStorage.getItem('theme');
-        if (currentTheme === 'light') {
-            document.body.classList.add('light-theme');
-            themeIcon.className = 'fas fa-sun';
-        }
-
-        themeToggle.addEventListener('click', function() {
-            document.body.classList.toggle('light-theme');
-            
-            if (document.body.classList.contains('light-theme')) {
-                themeIcon.className = 'fas fa-sun';
-                localStorage.setItem('theme', 'light');
-            } else {
-                themeIcon.className = 'fas fa-moon';
-                localStorage.setItem('theme', 'dark');
-            }
-        });
 
         // ==============================================
         // ADVANCED STATUS FETCHER (mcsrvstat.us API)
