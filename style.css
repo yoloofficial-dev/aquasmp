@@ -1,5 +1,5 @@
 /* ============================================================
-   THEME VARIABLES
+   THEME VARIABLES (DARK MODE ONLY)
    ============================================================ */
 :root {
     /* Dark Mode Defaults */
@@ -12,7 +12,7 @@
     --card-border: rgba(255, 255, 255, 0.08);
     --shadow-color: rgba(0,0,0,0.5);
     --nav-bg: rgba(22, 28, 36, 0.85);
-    --bg-overlay-color: rgba(13, 17, 23, 0.4);
+    --bg-overlay-color: rgba(13, 17, 23, 0.3); /* ✨ MADE 10% BRIGHTER */
 }
 
 * {
@@ -31,7 +31,6 @@ body {
     align-items: center;
     padding: 20px;
     padding-top: 100px;
-    transition: color 0.3s ease, background-color 0.3s ease;
 }
 
 /* --- BACKGROUND IMAGE --- */
@@ -45,7 +44,6 @@ body {
     background: var(--bg-image) center/cover no-repeat;
     background-color: var(--bg-overlay-color);
     background-blend-mode: overlay;
-    transition: background 0.3s ease, background-color 0.3s ease;
 }
 
 /* --- NAVIGATION --- */
@@ -69,7 +67,6 @@ body {
     width: auto;
     max-width: 90%;
     flex-wrap: wrap;
-    transition: background 0.3s ease, border 0.3s ease;
 }
 
 .brand {
@@ -120,33 +117,6 @@ body {
 
 .nav-items a.current i {
     color: var(--text-accent);
-}
-
-/* --- THEME TOGGLE BUTTON --- */
-.theme-toggle {
-    position: fixed;
-    top: 95px;
-    right: 30px;
-    z-index: 101;
-    width: 48px;
-    height: 48px;
-    border-radius: 50%;
-    background: var(--nav-bg);
-    backdrop-filter: blur(16px);
-    border: 1px solid var(--card-border);
-    box-shadow: 0 4px 15px var(--shadow-color);
-    color: var(--text-accent);
-    font-size: 20px;
-    cursor: pointer;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    transition: all 0.3s ease;
-}
-
-.theme-toggle:hover {
-    transform: scale(1.1);
-    border-color: var(--text-accent);
 }
 
 /* --- HERO SECTION --- */
@@ -275,27 +245,19 @@ body {
     margin-bottom: 12px;
 }
 
-/* --- FIXED LISTS --- */
-.feature-list, .store-list {
+.feature-list {
     list-style: none;
     padding: 0;
     margin: 10px 0 0;
 }
 
-.feature-list li, .store-list li {
+.feature-list li {
     padding: 6px 0;
     font-size: 15px;
     color: var(--text-muted);
     display: flex;
     align-items: center;
     gap: 10px;
-}
-
-.feature-list li i, .store-list li i {
-    color: var(--text-accent);
-    font-size: 16px;
-    width: 20px;
-    text-align: center;
 }
 
 /* --- FAQ --- */
@@ -500,7 +462,6 @@ body {
     .main-headline { font-size: 48px; }
     .contact-grid { grid-template-columns: 1fr; }
     .members-grid { grid-template-columns: 1fr 1fr; }
-    .theme-toggle { top: 90px; right: 15px; width: 40px; height: 40px; font-size: 16px; }
 }
 @media (max-width: 750px) {
     .content-card { padding: 20px; }
