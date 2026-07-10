@@ -12,7 +12,7 @@
     --card-border: rgba(255, 255, 255, 0.08);
     --shadow-color: rgba(0,0,0,0.5);
     --nav-bg: rgba(22, 28, 36, 0.85);
-    --bg-overlay-color: rgba(13, 17, 23, 0.3); /* ✨ MADE 10% BRIGHTER */
+    --bg-overlay-color: rgba(13, 17, 23, 0.2); /* ✨ MADE 10% BRIGHTER */
 }
 
 * {
