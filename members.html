@@ -10,7 +10,6 @@
 </head>
 <body>
     
-    <!-- Background is handled entirely by CSS Variables -->
     <div class="bg-image"></div>
 
     <nav class="ios-nav">
@@ -22,7 +21,7 @@
         <ul class="nav-items">
             <li><a href="index.html"><i class="fas fa-house"></i> Home</a></li>
             <li><a href="about.html"><i class="fas fa-circle-info"></i> About</a></li>
-            <li><a href="members.html"><i class="fas fa-users"></i> Members</a></li>
+            <li><a href="members.html" class="current"><i class="fas fa-users"></i> Members</a></li>
             <li><a href="store/"><i class="fas fa-cart-shopping"></i> Store</a></li>
             <li><a href="leaderboards.html"><i class="fas fa-trophy"></i> LeaderBoard</a></li>
             <li><a href="contact.html"><i class="fas fa-envelope"></i> Contact</a></li>
@@ -33,47 +32,53 @@
         <h1 class="page-title">Our Crew</h1>
         
         <div class="members-grid">
-            <div class="member-card">
-                <div class="avatar"><i class="fas fa-crown"></i></div>
-                <h3>PrimeLeader</h3>
-                <span class="role">Owner & Admin</span>
-                <p>Founder of the realm. Keeps the server running.</p>
+            
+            <!-- OWNER 1 -->
+            <div class="member-card" style="border-color: rgba(245, 215, 66, 0.5); box-shadow: 0 0 20px rgba(245, 215, 66, 0.1);">
+                <div class="avatar"><i class="fas fa-crown" style="color: #f5d742;"></i></div>
+                <h3>CaligoMc</h3>
+                <span class="role" style="background: rgba(245, 215, 66, 0.2); color: #f5d742; border-color: #f5d742;">Owner</span>
+                <p>The one who started it all.</p>
             </div>
-            <div class="member-card">
-                <div class="avatar"><i class="fas fa-hammer"></i></div>
-                <h3>BuildMaster</h3>
-                <span class="role">Head Builder</span>
-                <p>Designs spawn and epic structures.</p>
+
+            <!-- OWNER 2 -->
+            <div class="member-card" style="border-color: rgba(245, 215, 66, 0.5); box-shadow: 0 0 20px rgba(245, 215, 66, 0.1);">
+                <div class="avatar"><i class="fas fa-crown" style="color: #f5d742;"></i></div>
+                <h3>Dexter</h3>
+                <span class="role" style="background: rgba(245, 215, 66, 0.2); color: #f5d742; border-color: #f5d742;">Owner</span>
+                <p>Keeping the realm in check.</p>
             </div>
+
+            <!-- CO-OWNER -->
+            <div class="member-card" style="border-color: rgba(192, 192, 192, 0.4); box-shadow: 0 0 15px rgba(192, 192, 192, 0.1);">
+                <div class="avatar"><i class="fas fa-star" style="color: #c0c0c0;"></i></div>
+                <h3>Ren</h3>
+                <span class="role" style="background: rgba(192, 192, 192, 0.15); color: #c0c0c0; border-color: #c0c0c0;">Co-Owner</span>
+                <p>Right hand to the throne.</p>
+            </div>
+
+            <!-- ADMIN -->
             <div class="member-card">
                 <div class="avatar"><i class="fas fa-shield-alt"></i></div>
-                <h3>GuardianX</h3>
-                <span class="role">Moderator</span>
-                <p>Keeps peace and helps new players.</p>
+                <h3>Zyx</h3>
+                <span class="role">Admin</span>
+                <p>Enforcing peace and order.</p>
             </div>
+
+            <!-- HELPER / WEBSITE CREATOR -->
             <div class="member-card">
-                <div class="avatar"><i class="fas fa-dragon"></i></div>
-                <h3>DragonSlayer</h3>
-                <span class="role">Elite Member</span>
-                <p>Survival expert & PvP champion.</p>
+                <div class="avatar"><i class="fas fa-code"></i></div>
+                <h3>Yolo</h3>
+                <span class="role" style="background: rgba(100, 200, 255, 0.1); color: #64c8ff; border-color: #64c8ff;">Helper</span>
+                <p>Creator of the website.</p>
             </div>
-            <div class="member-card">
-                <div class="avatar"><i class="fas fa-leaf"></i></div>
-                <h3>ForestWander</h3>
-                <span class="role">Explorer</span>
-                <p>Finds the best build spots and secrets.</p>
-            </div>
-            <div class="member-card">
-                <div class="avatar"><i class="fas fa-cookie"></i></div>
-                <h3>ChefPixel</h3>
-                <span class="role">Event Coordinator</span>
-                <p>Organizes fun challenges and giveaways.</p>
-            </div>
+
         </div>
     </main>
 
     <footer class="site-footer">
-        <p>Designed by Yoloo, Mwaa</p>
+        <p>Designed by Yoloo, Mwaa. Love you chupchup ko bb</p>
     </footer>
+
 </body>
 </html>
