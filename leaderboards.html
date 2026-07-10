@@ -12,10 +12,6 @@
     
     <div class="bg-image"></div>
 
-    <button class="theme-toggle" id="themeToggle" title="Toggle Theme">
-        <i class="fas fa-moon" id="themeIcon"></i>
-    </button>
-
     <nav class="ios-nav">
         <div class="brand">
             <i class="fas fa-cube brand-icon"></i>
@@ -63,28 +59,6 @@
     <footer class="site-footer">
         <p>Designed by Yoloo, Mwaa. Love you chupchup ko bb</p>
     </footer>
-
-    <script>
-        const themeToggle = document.getElementById('themeToggle');
-        const themeIcon = document.getElementById('themeIcon');
-
-        const currentTheme = localStorage.getItem('theme');
-        if (currentTheme === 'light') {
-            document.body.classList.add('light-theme');
-            themeIcon.className = 'fas fa-sun';
-        }
-
-        themeToggle.addEventListener('click', function() {
-            document.body.classList.toggle('light-theme');
-            if (document.body.classList.contains('light-theme')) {
-                themeIcon.className = 'fas fa-sun';
-                localStorage.setItem('theme', 'light');
-            } else {
-                themeIcon.className = 'fas fa-moon';
-                localStorage.setItem('theme', 'dark');
-            }
-        });
-    </script>
 
     <script>
         // 👉 POINTS TO YOUR LOCAL PHP FILE (NO CORS ERROR)
