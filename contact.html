@@ -3,20 +3,19 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Contact · PrimeNetwork S1</title>
+    <title>Contact · AquaSMP S2</title>
     <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="style.css" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" />
 </head>
 <body>
     
-    <!-- Background is handled entirely by CSS Variables -->
     <div class="bg-image"></div>
-    
+
     <nav class="ios-nav">
         <div class="brand">
             <i class="fas fa-cube brand-icon"></i>
-            <span class="brand-name">PrimeNetwork</span>
+            <span class="brand-name">AquaSMP</span>
         </div>
         
         <ul class="nav-items">
@@ -25,7 +24,7 @@
             <li><a href="members.html"><i class="fas fa-users"></i> Members</a></li>
             <li><a href="store/"><i class="fas fa-cart-shopping"></i> Store</a></li>
             <li><a href="leaderboards.html"><i class="fas fa-trophy"></i> LeaderBoard</a></li>
-            <li><a href="contact.html"><i class="fas fa-envelope"></i> Contact</a></li>
+            <li><a href="contact.html" class="current"><i class="fas fa-envelope"></i> Contact</a></li>
         </ul>
     </nav>
 
@@ -34,11 +33,11 @@
         
         <div class="contact-grid">
             <div class="contact-info">
-                <h3><i class="fas fa-comments" style="color: #f5d742;"></i> Discord</h3>
+                <h3><i class="fab fa-discord" style="color: var(--text-accent);"></i> Discord</h3>
                 <p>Join our community for support, events, and chat!</p>
-                <a href="https://discord.gg/kAsbvsGXQm" target="_blank" class="btn-outline"><i class="fas fa-comments"></i> PrimeNetwork Discord</a>
+                <a href="https://discord.gg/kAsbvsGXQm" target="_blank" class="btn-outline"><i class="fab fa-discord"></i> AquaSMP Discord</a>
                 
-                <h3><i class="fas fa-server" style="color: #f5d742;"></i> Server IP</h3>
+                <h3><i class="fas fa-server" style="color: var(--text-accent);"></i> Server IP</h3>
                 <p class="ip-highlight">primesmp.loca.lol</p>
             </div>
             
@@ -80,7 +79,7 @@
     </main>
 
     <footer class="site-footer">
-        <p>Designed by Yoloo, Mwaa</p>
+        <p>Designed by Yoloo, Mwaa. Love you chupchup ko bb</p>
     </footer>
 
     <script>
@@ -107,7 +106,7 @@
                 .then(response => {
                     if (response.ok) {
                         formStatus.style.display = 'block';
-                        formStatus.style.color = '#f5d742';
+                        formStatus.style.color = 'var(--text-accent)';
                         formStatus.innerHTML = '✅ Message sent successfully! We will get back to you soon.';
                         form.reset();
                     } else {
@@ -128,6 +127,5 @@
             });
         });
     </script>
-
 </body>
 </html>
