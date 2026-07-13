@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Leaderboards · PrimeNetwork S1</title>
+    <title>Leaderboards · AquaSMP S2</title>
     <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="style.css" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" />
@@ -15,7 +15,7 @@
     <nav class="ios-nav">
         <div class="brand">
             <i class="fas fa-cube brand-icon"></i>
-            <span class="brand-name">PrimeNetwork</span>
+            <span class="brand-name">AquaSMP</span>
         </div>
         
         <ul class="nav-items">
@@ -29,7 +29,7 @@
     </nav>
 
     <main class="page-content">
-        <h1 class="page-title">Server Leaderboards</h1>
+        <h1 class="page-title">AquaSMP Leaderboards</h1>
         
         <div class="lb-categories">
             <button class="lb-btn active" onclick="switchLB('points')"><i class="fas fa-star"></i> Points</button>
@@ -61,8 +61,7 @@
     </footer>
 
     <script>
-        // 👉 POINTS TO YOUR LOCAL PHP FILE (NO CORS ERROR)
-        const BRIDGE_URL = 'proxy.php';
+        const BRIDGE_URL = 'https://api.npoint.io/076c2b56fddcb94e094d';
 
         function switchLB(id) {
             document.querySelectorAll('.lb-btn').forEach(b => b.classList.remove('active'));
@@ -86,8 +85,7 @@
             } catch (error) {
                 console.error("Failed to load bridge data:", error);
                 document.querySelectorAll('.lb-container').forEach(container => {
-                    // 👉 REMOVED THE CLOUDFLARE HEADERS ERROR MESSAGE
-                    container.innerHTML = `<div class="lb-empty" style="color: #ff3b3b;"><i class="fas fa-times-circle"></i> Failed to connect. Check console.</div>`;
+                    container.innerHTML = `<div class="lb-empty" style="color: #ff3b3b;"><i class="fas fa-times-circle"></i> Failed to connect to data bridge.</div>`;
                 });
             }
         }
@@ -96,7 +94,7 @@
             const container = document.getElementById('lb-' + id);
             container.innerHTML = '';
 
-            const filteredPlayers = players.filter(p => p.value >= 0);
+            const filteredPlayers = players.filter(p => p.value > 0);
 
             if (!filteredPlayers || filteredPlayers.length === 0) {
                 container.innerHTML = `<div class="lb-empty">No data available yet.</div>`;
