@@ -1,18 +1,17 @@
 /* ============================================================
-   THEME VARIABLES (DARK MODE ONLY)
+   THEME VARIABLES (AQUA BLUE THEME)
    ============================================================ */
 :root {
-    /* Dark Mode Defaults */
     --bg-image: url('assets/dark-bg.png');
     --text-main: #e0e6ed;
     --text-muted: #8b949e;
-    --text-accent: #f5d742;
-    --text-accent-hover: #e6c832;
+    --text-accent: #409FFF;        /* Aqua Blue */
+    --text-accent-hover: #2277dd;
     --card-bg: rgba(18, 26, 32, 0.75);
     --card-border: rgba(255, 255, 255, 0.08);
     --shadow-color: rgba(0,0,0,0.5);
     --nav-bg: rgba(22, 28, 36, 0.85);
-    --bg-overlay-color: rgba(13, 17, 23, 0.2); /* ✨ MADE 10% BRIGHTER */
+    --bg-overlay-color: rgba(13, 17, 23, 0.2); /* Brighter background */
 }
 
 * {
@@ -136,7 +135,7 @@ body {
     margin-bottom: 20px;
 }
 
-.highlight-gold { color: var(--text-accent); }
+.highlight-accent { color: var(--text-accent); }
 .highlight-dark { color: var(--text-muted); }
 
 .tagline {
@@ -166,7 +165,7 @@ body {
     align-items: center;
     gap: 10px;
     transition: 0.2s;
-    box-shadow: 0 4px 15px rgba(245, 215, 66, 0.3);
+    box-shadow: 0 4px 15px rgba(64, 159, 255, 0.3);
 }
 
 .cta-primary:hover { 
@@ -191,7 +190,7 @@ body {
 
 .cta-secondary:hover { 
     border-color: var(--text-accent); 
-    background: rgba(245, 215, 66, 0.05);
+    background: rgba(64, 159, 255, 0.05);
 }
 
 /* --- PAGE CONTENT --- */
@@ -279,7 +278,7 @@ body {
     padding: 16px 20px;
 }
 
-.faq-item:hover { border-color: rgba(245, 215, 66, 0.2); }
+.faq-item:hover { border-color: rgba(64, 159, 255, 0.2); }
 
 .faq-question {
     display: flex;
@@ -325,7 +324,7 @@ body {
     flex-direction: column;
 }
 
-.rules-card:hover { border-color: rgba(245, 215, 66, 0.2); box-shadow: 0 8px 30px var(--shadow-color); }
+.rules-card:hover { border-color: rgba(64, 159, 255, 0.2); box-shadow: 0 8px 30px var(--shadow-color); }
 
 .rules-card-header {
     display: flex;
@@ -341,7 +340,7 @@ body {
     font-size: 24px;
     width: 40px;
     height: 40px;
-    background: rgba(245, 215, 66, 0.1);
+    background: rgba(64, 159, 255, 0.1);
     border-radius: 12px;
     display: flex;
     align-items: center;
@@ -401,13 +400,13 @@ body {
     display: flex; align-items: center; gap: 8px;
 }
 .lb-btn:hover { border-color: var(--text-accent); transform: translateY(-2px); }
-.lb-btn.active { background: var(--text-accent); color: #0d1117; border-color: var(--text-accent); box-shadow: 0 4px 15px rgba(245, 215, 66, 0.3); }
+.lb-btn.active { background: var(--text-accent); color: #0d1117; border-color: var(--text-accent); box-shadow: 0 4px 15px rgba(64, 159, 255, 0.3); }
 .lb-container { display: none; flex-direction: column; gap: 14px; max-width: 600px; margin: 0 auto; }
 .lb-container.active { display: flex; }
 .lb-card { background: var(--card-bg); backdrop-filter: blur(10px); border: 1px solid var(--card-border); border-radius: 16px; padding: 14px 20px; display: flex; align-items: center; }
-.lb-card:hover { border-color: rgba(245, 215, 66, 0.3); box-shadow: 0 8px 25px var(--shadow-color); transform: translateY(-2px); }
+.lb-card:hover { border-color: rgba(64, 159, 255, 0.3); box-shadow: 0 8px 25px var(--shadow-color); transform: translateY(-2px); }
 .lb-rank { background: #2a323d; color: var(--text-muted); font-weight: 700; font-size: 13px; padding: 4px 12px; border-radius: 20px; margin-right: 16px; min-width: 36px; text-align: center; }
-.lb-card.top-1 .lb-rank { background: var(--text-accent); color: #0d1117; box-shadow: 0 0 20px rgba(245, 215, 66, 0.3); }
+.lb-card.top-1 .lb-rank { background: var(--text-accent); color: #0d1117; box-shadow: 0 0 20px rgba(64, 159, 255, 0.3); }
 .lb-card.top-2 .lb-rank { background: #c0c0c0; color: #0d1117; box-shadow: 0 0 20px rgba(192, 192, 192, 0.2); }
 .lb-card.top-3 .lb-rank { background: #cd7f32; color: #0d1117; box-shadow: 0 0 20px rgba(205, 127, 50, 0.2); }
 .lb-info { display: flex; justify-content: space-between; align-items: center; flex: 1; }
@@ -422,7 +421,7 @@ body {
 .member-card:hover { border-color: var(--text-accent); transform: translateY(-4px); }
 .member-card .avatar { font-size: 32px; color: var(--text-accent); margin-bottom: 8px; }
 .member-card h3 { font-size: 18px; color: var(--text-main); margin-bottom: 4px; }
-.member-card .role { display: inline-block; background: rgba(245, 215, 66, 0.1); color: var(--text-accent); padding: 2px 14px; border-radius: 20px; font-size: 12px; font-weight: 600; margin: 5px 0 8px; border: 1px solid rgba(245, 215, 66, 0.1); }
+.member-card .role { display: inline-block; background: rgba(64, 159, 255, 0.1); color: var(--text-accent); padding: 2px 14px; border-radius: 20px; font-size: 12px; font-weight: 600; margin: 5px 0 8px; border: 1px solid rgba(64, 159, 255, 0.1); }
 .member-card p { font-size: 13px; color: var(--text-muted); }
 
 /* --- STORE --- */
@@ -451,7 +450,7 @@ body {
 .form-select { appearance: none; background-image: url("data:image/svg+xml;charset=US-ASCII,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%22292.4%22%20height%3D%22292.4%22%3E%3Cpath%20fill%3D%22%23f5d742%22%20d%3D%22M287%2069.4a17.6%2017.6%200%200%200-13-5.4H18.4c-5%200-9.3%201.8-12.9%205.4A17.6%2017.6%200%200%200%200%2082.2c0%205%201.8%209.3%205.4%2012.9l128%20127.9c3.6%203.6%207.8%205.4%2012.8%205.4s9.2-1.8%2012.8-5.4L287%2095c3.5-3.5%205.4-7.8%205.4-12.8%200-5-1.9-9.2-5.5-12.8z%22%2F%3E%3C%2Fsvg%3E"); background-repeat: no-repeat; background-position: right 15px top 50%; background-size: 12px auto; cursor: pointer; }
 .form-select option { background-color: #1a222c; color: var(--text-main); }
 .btn-outline { display: inline-block; border: 2px solid var(--card-border); color: var(--text-main); padding: 10px 24px; border-radius: 30px; text-decoration: none; font-weight: 600; font-size: 14px; transition: 0.2s; margin-top: 4px; }
-.btn-outline:hover { border-color: var(--text-accent); background: rgba(245, 215, 66, 0.05); }
+.btn-outline:hover { border-color: var(--text-accent); background: rgba(64, 159, 255, 0.05); }
 .ip-highlight { color: var(--text-accent); font-weight: 700; font-size: 18px; }
 
 /* --- FOOTER --- */
